@@ -1,14 +1,7 @@
-const faker = require("faker");
-const { User } = require("../models");
-const { usersSize } = require("../config/seeders");
-const bcrypt = require("bcryptjs");
-const salts = 10;
-
-faker.locale = "en";
+const { User, Product } = require("../models");
 
 module.exports = async () => {
   const products = [];
-  const password = await bcrypt.hash("root", salts);
 
   products.push(
     {
@@ -16,21 +9,29 @@ module.exports = async () => {
       slug: "Tesla-M3",
       image:
         "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Tesla-M3.jpeg",
-      price: "100000000000",
+      price: 48490,
       description:
-        "Es eléctrico, eléctricoooo que mas podrías pedir, se lo vendemos. Auto muy muy caro? Se dice: Inversión a futuro, y eléctrico.",
+        "Es eléctrico, eléctricoooo. Barato? Se dice: Inversión a futuro, y eléctrico.",
     },
     {
-      name: "Tesla M3",
-      slug: "Tesla-M3",
+      name: "Ferrari 296 GTB",
+      slug: "Ferrari-296-GTB",
       image:
-        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Tesla-M3.jpeg",
-      price: "100000000000",
+        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Ferrari-296GTB.jpeg",
+      price: 321400,
       description:
-        "Hace brum, brum y brum... Potencias: v8,v6, voy y compro. Incluye: Atrae mujeres, hombres y otros.",
+        "Hace brum, brum y brum... Potencia: muy muy potente. Atrae mujeres, hombres y otros.",
     },
+    {
+      name: "Lamborghini Aventador",
+      slug: "Lamborghini-Aventador",
+      image:
+        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Lamborghini-Aventador.jpeg",
+      price: 517826,
+      description: "Luxury I love It C:",
+    }
   );
 
-  await User.bulkCreate(products);
+  await Product.bulkCreate(products);
   console.log("[Database] Se corrió el seeder de Productos.");
 };
