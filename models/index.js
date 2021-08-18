@@ -27,3 +27,15 @@ module.exports = {
   Article,
   Token,
 };
+
+async function testDB() {
+  try {
+    await sequelize.authenticate();
+    console.log(
+      "[Sequalize][DB] Connection has been established successfully."
+    );
+  } catch (error) {
+    console.error("[Sequalize][DB] Unable to connect to the database:", error);
+  }
+}
+testDB();

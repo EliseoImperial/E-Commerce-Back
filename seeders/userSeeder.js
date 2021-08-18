@@ -1,25 +1,24 @@
-/*const faker = require("faker");
+const faker = require("faker");
 const { User } = require("../models");
-const bcrypt = require("bcryptjs");
+const { usersSize } = require("../config/seeders");
 
 faker.locale = "en";
 
 module.exports = async () => {
-  const role = 1;
   const user = [];
 
-  for (let i = 0; i < 10; i++) {
-    const password = await bcrypt.hash(faker.internet.password(), 10);
+  for (let i = 0; i < usersSize; i++) {
     user.push({
+      username: faker.internet.userName(),
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
       email: faker.internet.email(),
-      username: faker.internet.userName(),
-      password: password,
-      roleId: role,
+      address: faker.address.streetAddress(),
+      telephone: faker.phone.phoneNumber(),
+      password: "root",
     });
   }
 
   await User.bulkCreate(user);
   console.log("[Database] Se corrió el seeder de User.");
-};*/
+};
