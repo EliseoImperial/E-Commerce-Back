@@ -26,7 +26,7 @@ module.exports = async () => {
       name: "Lamborghini Aventador",
       slug: "Lamborghini-Aventador",
       image:
-        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Lamborghini-Aventador.jpeg",
+        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Lambo-Aventador.webp",
       price: 517826,
       description: "Luxury I love It C:",
     }
