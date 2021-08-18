@@ -1,21 +1,18 @@
 const { User, Product, Token } = require("../models");
 const { Op } = require("sequelize");
-const { validUser, filterUserProps } = require("../utils/user");
 
 function index(req, res) {
   res.json("[index] We are working...");
 }
 
 async function store(req, res) {
-  if (!validUser(req.body))
-    return res.status(422).json({ error: "Error en algun campo." });
+  const { name } = req.body;
   const [user, created] = await User.findOrCreate({
     where: {
-      [Op.or]: [{ username: req.body.username }, { email: req.body.email }],
+      [Op.or]: [{ name }, { slug: name }],
     },
     defaults: req.body,
   });
-  if (!created) return res.status(406).json({ error: "User exist" });
   res.json(filterUserProps(user));
 }
 

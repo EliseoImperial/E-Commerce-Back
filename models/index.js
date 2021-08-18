@@ -12,19 +12,19 @@ const sequelize = new Sequelize(
 );
 
 const User = require("./User")(sequelize, Model, DataTypes);
-const Article = require("./Article")(sequelize, Model, DataTypes);
+const Product = require("./Product")(sequelize, Model, DataTypes);
 const Token = require("./Token")(sequelize, Model, DataTypes);
 
 /// Acomodar, el usuario tiene muchos articulos y viceversa
-User.hasMany(Article);
-Article.belongsTo(User);
+User.hasMany(Product);
+Product.belongsTo(User);
 User.hasMany(Token);
 Token.belongsTo(User);
 
 module.exports = {
   sequelize,
   User,
-  Article,
+  Product,
   Token,
 };
 

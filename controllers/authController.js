@@ -1,3 +1,3 @@
-const { User, Article, Token } = require("../models");
+const { User, Product, Token } = require("../models");
 
 module.exports = {};
