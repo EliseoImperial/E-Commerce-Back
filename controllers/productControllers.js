@@ -1,19 +1,27 @@
-const { User, Product, Token } = require("../models");
+const { Product } = require("../models");
 const { Op } = require("sequelize");
 
-function index(req, res) {
-  res.json("[index] We are working...");
+async function index(req, res) {
+  const products = await Product.findAll();
+  if (!products) return res.status(404).json({ error: "Products not found" });
+  res.json(products);
+}
+
+async function show(req, res) {
+  const product = await Product.findOne({ where: { slug: req.params.slug } });
+  if (!product) return res.status(404).json({ error: "Product not found" });
+  res.json(product);
 }
 
 async function store(req, res) {
   const { name } = req.body;
-  const [user, created] = await User.findOrCreate({
+  const [product, created] = await Product.findOrCreate({
     where: {
       [Op.or]: [{ name }, { slug: name }],
     },
     defaults: req.body,
   });
-  res.json(filterUserProps(user));
+  res.json(product);
 }
 
 function update(req, res) {
@@ -24,4 +32,4 @@ function destroy(req, res) {
   res.json("[destroy] We are working...");
 }
 
-module.exports = { index, store, update, destroy };
+module.exports = { index, show, store, update, destroy };

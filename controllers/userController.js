@@ -1,4 +1,4 @@
-const { User, Product, Token } = require("../models");
+const { User } = require("../models");
 const { Op } = require("sequelize");
 const { validUser, filterUserProps } = require("../utils/user");
 

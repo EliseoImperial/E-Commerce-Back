@@ -7,11 +7,11 @@ const salts = 10;
 faker.locale = "en";
 
 module.exports = async () => {
-  const user = [];
+  const users = [];
   const password = await bcrypt.hash("root", salts);
 
   for (let i = 0; i < usersSize; i++) {
-    user.push({
+    users.push({
       username: faker.internet.userName(),
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
@@ -22,6 +22,6 @@ module.exports = async () => {
     });
   }
 
-  await User.bulkCreate(user);
-  console.log("[Database] Se corrió el seeder de User.");
+  await User.bulkCreate(users);
+  console.log("[Database] Se corrió el seeder de Usuario.");
 };
