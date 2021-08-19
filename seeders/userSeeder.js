@@ -12,7 +12,6 @@ module.exports = async () => {
 
   for (let i = 0; i < usersSize; i++) {
     users.push({
-      username: faker.internet.userName(),
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
       email: faker.internet.email(),

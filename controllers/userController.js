@@ -10,9 +10,7 @@ async function store(req, res) {
   if (!validUser(req.body))
     return res.status(422).json({ error: "Error en algun campo." });
   const [user, created] = await User.findOrCreate({
-    where: {
-      [Op.or]: [{ username: req.body.username }, { email: req.body.email }],
-    },
+    where: { email: req.body.email },
     defaults: req.body,
   });
   if (!created) return res.status(406).json({ error: "User exist" });
