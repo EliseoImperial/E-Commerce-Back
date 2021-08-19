@@ -20,6 +20,10 @@ async function login(req, res) {
   } else {
     res.json("no");
   }
+async function show(req, res) {
+  const user = await User.findOne({ where: { email: req.params.email } });
+  if(!user) return res.json("User not found.");
+  return res.json(user);
 }
 
 async function store(req, res) {
@@ -46,4 +50,4 @@ function destroy(req, res) {
   res.json("[destroy] We are working...");
 }
 
-module.exports = { index, store, update, destroy, login };
+module.exports = { index, store, update, destroy, login, show };
