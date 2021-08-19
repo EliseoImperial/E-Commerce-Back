@@ -1,3 +1,4 @@
+const { OctetStreamParser } = require("formidable");
 const { Sequelize, Model, DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(
@@ -15,18 +16,26 @@ const sequelize = new Sequelize(
 const User = require("./User")(sequelize, Model, DataTypes);
 const Product = require("./Product")(sequelize, Model, DataTypes);
 const Token = require("./Token")(sequelize, Model, DataTypes);
+const Order = require("./Order")(sequelize, Model, DataTypes);
+const Role = require('./Role')(sequelize, Model, DataTypes);
 
 /// Acomodar, el usuario tiene muchos articulos y viceversa
-User.hasMany(Product);
-Product.belongsTo(User);
+Role.hasMany(User);
+User.belongsTo(Role);
 User.hasMany(Token);
 Token.belongsTo(User);
+User.hasMany(Order);
+Order.belongsTo(User);
+Order.belongsToMany(Product, { through: "OrderProduct"});
+Product.belongsToMany(Order, { through: "OrderProduct" });
 
 module.exports = {
   sequelize,
   User,
   Product,
   Token,
+  Order,
+  Role
 };
 
 async function testDB() {

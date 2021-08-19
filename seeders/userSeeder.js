@@ -18,6 +18,7 @@ module.exports = async () => {
       address: faker.address.streetAddress(),
       telephone: faker.phone.phoneNumber(),
       password,
+      roleId: 1,
     });
   }
 
