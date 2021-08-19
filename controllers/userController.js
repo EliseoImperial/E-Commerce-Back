@@ -6,6 +6,12 @@ function index(req, res) {
   res.json("[index] We are working...");
 }
 
+async function show(req, res) {
+  const user = await User.findOne({ where: { email: req.params.email } });
+  if(!user) return res.json("User not found.");
+  return res.json(user);
+}
+
 async function store(req, res) {
   if (!validUser(req.body))
     return res.status(422).json({ error: "Error en algun campo." });
@@ -25,4 +31,4 @@ function destroy(req, res) {
   res.json("[destroy] We are working...");
 }
 
-module.exports = { index, store, update, destroy };
+module.exports = { index, show, store, update, destroy };
