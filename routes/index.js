@@ -5,8 +5,8 @@ const publicRoutes = require("./publicRoutes");
 const productRoutes = require("./productRoutes");
 
 apiRoutes.use(publicRoutes);
-apiRoutes.use(productRoutes);
-apiRoutes.use(userRoutes);
+apiRoutes.use("/products", productRoutes);
+apiRoutes.use("/users", userRoutes);
 
 module.exports = (app) => {
   app.use("/api", apiRoutes);
