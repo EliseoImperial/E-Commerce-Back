@@ -1,9 +1,25 @@
-const { User } = require("../models");
+const { User, Token } = require("../models");
 const { Op } = require("sequelize");
 const { validUser, filterUserProps } = require("../utils/user");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 function index(req, res) {
   res.json("[index] We are working...");
+}
+
+async function login(req, res) {
+  const salts = 10;
+  const user = await User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  });
+  if (user && (await user.validPassword(req.body.password))) {
+    res.json("si");
+  } else {
+    res.json("no");
+  }
 }
 
 async function store(req, res) {
@@ -13,8 +29,13 @@ async function store(req, res) {
     where: { email: req.body.email },
     defaults: req.body,
   });
-  if (!created) return res.status(406).json({ error: "User exist" });
-  res.json(filterUserProps(user));
+  const token = await Token.create({
+    userId: user.id,
+    token: jwt.sign({ sub: user.id }, process.env.TOKEN_KEY),
+  });
+  if (!created) return res.status(406).json({ error: "User already exists" });
+  const newUser = { ...filterUserProps(user), token: token };
+  res.json(newUser);
 }
 
 function update(req, res) {
@@ -25,4 +46,4 @@ function destroy(req, res) {
   res.json("[destroy] We are working...");
 }
 
-module.exports = { index, store, update, destroy };
+module.exports = { index, store, update, destroy, login };
