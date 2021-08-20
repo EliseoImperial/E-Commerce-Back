@@ -9,20 +9,25 @@ function index(req, res) {
 }
 
 async function login(req, res) {
-  const salts = 10;
   const user = await User.findOne({
     where: {
       email: req.body.email,
     },
   });
   if (user && (await user.validPassword(req.body.password))) {
-    res.json("si");
+    const userToken = await Token.findOne({
+      where: {
+        userId: user.id,
+      },
+    });
+    res.json({ user: user.email, token: userToken.token });
   } else {
-    res.json("no");
+    res.status(404);
   }
+}
 async function show(req, res) {
   const user = await User.findOne({ where: { email: req.params.email } });
-  if(!user) return res.json("User not found.");
+  if (!user) return res.json("User not found.");
   return res.json(user);
 }
 
