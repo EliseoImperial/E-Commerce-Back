@@ -25,6 +25,7 @@ async function login(req, res) {
     res.status(404);
   }
 }
+
 async function show(req, res) {
   const user = await User.findOne({ where: { email: req.params.email } });
   if (!user) return res.json("User not found.");

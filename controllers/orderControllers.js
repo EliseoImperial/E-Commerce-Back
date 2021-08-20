@@ -1,4 +1,4 @@
-const { Order, User, OrderProduct, Role } = require("../models");
+const { Order, User, OrderProduct } = require("../models");
 
 async function index(req, res) {
   const orders = await Order.findAll();
@@ -12,17 +12,17 @@ async function show(req, res) {
 }
 
 async function store(req, res) {
-  if (req.body.guest === true) {
-    const user = await User.create({
-      firstname: req.body.firstName,
-      lastname: req.body.lastName,
-      email: req.body.email,
-      address: req.body.address,
-      password: "",
-      telephone: req.body.phone,
-      roleId: 1,
-    });
-    if (user) {
+//   if (req.body.guest === true) {
+//     const user = await User.create({
+//       firstname: req.body.firstName,
+//       lastname: req.body.lastName,
+//       email: req.body.email,
+//       address: req.body.address,
+//       password: "",
+//       telephone: req.body.phone,
+//       roleId: 1,
+//     });
+    // if (user) {
         const order = await Order.create({
           status: "PENDING",
           userId: user.id,
@@ -33,12 +33,13 @@ async function store(req, res) {
             orderId: order.id,
             productId: item,
             quantity: 1,
+            unit_price: 1
           }));
           const order_product = await OrderProduct.bulkCreate(products);
-          if (order_product) return res.sendStatus(200);
+          if (order_product) return res.json(order);
         }
-    }
-  }
+//     }
+//  }
   res.sendStatus(403);
 }
 
