@@ -22,6 +22,16 @@ module.exports = async () => {
     });
   }
 
+  users.push({
+    firstname: "admin",
+    lastname: "admin",
+    email: "admin@admin.com",
+    address: "admin a d m i n admin",
+    telephone: "adm ina dmi",
+    password: "admin",
+    roleId: 3,
+  });
+
   await User.bulkCreate(users);
   console.log("[Database] Se corrió el seeder de Usuario.");
 };
