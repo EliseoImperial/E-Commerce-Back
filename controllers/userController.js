@@ -20,9 +20,11 @@ async function login(req, res) {
   } else {
     res.json("no");
   }
+}
+
 async function show(req, res) {
   const user = await User.findOne({ where: { email: req.params.email } });
-  if(!user) return res.json("User not found.");
+  if (!user) return res.json("User not found.");
   return res.json(user);
 }
 
