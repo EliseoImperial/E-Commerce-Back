@@ -1,3 +1,3 @@
 module.exports = {
-  usersSize: 10,
+  usersSize: 100,
 };
