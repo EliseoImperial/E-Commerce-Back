@@ -5,9 +5,10 @@ const routes = require("./routes");
 const dbInitialSetup = require("./dbInitialSetup");
 const APP_PORT = process.env.APP_PORT || 8000;
 const app = express();
-const views = require("./config/views");
+const cors = require("cors");
 
-views(app);
+app.use(cors());
+app.use(express.json());
 routes(app);
 
 //dbInitialSetup(); // Crea tablas e inserta datos de prueba.
