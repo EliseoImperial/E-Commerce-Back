@@ -4,7 +4,7 @@ const userController = require("../controllers/userController");
 const checkJwt = require("express-jwt");
 
 usersRoutes.post("/", userController.store);
-usersRoutes.get("/", userController.login);
+usersRoutes.get("/token", userController.token);
 usersRoutes.get("/:email", userController.show);
 
 usersRoutes.use(

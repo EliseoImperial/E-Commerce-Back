@@ -8,7 +8,7 @@ function index(req, res) {
   res.json("[index] We are working...");
 }
 
-async function login(req, res) {
+async function token(req, res) {
   const user = await User.findOne({
     where: {
       email: req.body.email,
@@ -56,4 +56,4 @@ function destroy(req, res) {
   res.json("[destroy] We are working...");
 }
 
-module.exports = { index, store, update, destroy, login, show };
+module.exports = { index, store, update, destroy, token, show };
