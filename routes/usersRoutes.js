@@ -3,7 +3,7 @@ const usersRoutes = express.Router();
 const userController = require("../controllers/userController");
 const checkJwt = require("express-jwt");
 
-usersRoutes.get("/token", userController.token);
+usersRoutes.post("/token", userController.token);
 usersRoutes.post("/", userController.store);
 
 usersRoutes.use(

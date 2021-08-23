@@ -9,6 +9,7 @@ async function index(req, res) {
 }
 
 async function token(req, res) {
+  console.log("entre al token");
   const user = await User.findOne({
     where: {
       email: req.body.email,
@@ -20,6 +21,8 @@ async function token(req, res) {
         userId: user.id,
       },
     });
+    console.log(user);
+    console.log(userToken);
     res.json({ user: user.email, token: userToken.token });
   } else {
     res.status(400).json({ error: "User do not exist or bad request." });
