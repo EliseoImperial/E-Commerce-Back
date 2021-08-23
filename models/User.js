@@ -5,6 +5,9 @@ module.exports = (sequelize, Model, DataTypes) => {
     async validPassword(plaintextPassword) {
       return await bcrypt.compare(plaintextPassword, this.password);
     }
+    async hash(password) {
+      return await bcrypt.hash(password, salts);
+    }
   }
 
   User.init(

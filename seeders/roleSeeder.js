@@ -11,6 +11,9 @@ module.exports = async () => {
       name: "CUSTOMER",
     },
     {
+      name: "DELETED",
+    },
+    {
       name: "ADMIN",
     }
   );
