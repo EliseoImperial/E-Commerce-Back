@@ -1,14 +1,14 @@
-const { Product } = require("../models");
+const { Product, Brand } = require("../models");
 const { Op } = require("sequelize");
 
 async function index(req, res) {
-  const products = await Product.findAll();
+  const products = await Product.findAll({ include: Brand });
   if (!products) return res.status(404).json({ error: "Products not found" });
   res.json(products);
 }
 
 async function show(req, res) {
-  const product = await Product.findOne({ where: { slug: req.params.slug } });
+  const product = await Product.findOne({ where: { slug: req.params.slug }, include: Brand });
   if (!product) return res.status(404).json({ error: "Product not found" });
   res.json(product);
 }
