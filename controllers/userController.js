@@ -1,5 +1,6 @@
 const { User, Token, Order } = require("../models");
 const { validUser, filterUserProps } = require("../utils/user");
+const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 
 async function index(req, res) {
