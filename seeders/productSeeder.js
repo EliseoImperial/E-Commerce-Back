@@ -12,6 +12,7 @@ module.exports = async () => {
       price: 48490,
       description:
         "Es eléctrico, eléctricoooo. Barato? Se dice: Inversión a futuro, y eléctrico.",
+      brandId: 1,
     },
     {
       name: "Ferrari 296 GTB",
@@ -21,6 +22,7 @@ module.exports = async () => {
       price: 321400,
       description:
         "Hace brum, brum y brum... Potencia: muy muy potente. Atrae mujeres, hombres y otros.",
+      brandId: 2,
     },
     {
       name: "Lamborghini Aventador",
@@ -29,6 +31,7 @@ module.exports = async () => {
         "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Lambo-Aventador.webp",
       price: 517826,
       description: "Luxury I love It C:",
+      brandId: 3,
     }
   );
 

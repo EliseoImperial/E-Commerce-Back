@@ -15,6 +15,7 @@ const sequelize = new Sequelize(
 
 const User = require("./User")(sequelize, Model, DataTypes);
 const Product = require("./Product")(sequelize, Model, DataTypes);
+const Brand = require("./Brand")(sequelize, Model, DataTypes);
 const Token = require("./Token")(sequelize, Model, DataTypes);
 const Order = require("./Order")(sequelize, Model, DataTypes);
 const Role = require("./Role")(sequelize, Model, DataTypes);
@@ -23,7 +24,8 @@ const OrderProduct = require("./OrderProduct")(
   Model,
   DataTypes,
   Order,
-  Product
+  Product,
+  Brand
 );
 
 /// Acomodar, el usuario tiene muchos articulos y viceversa
@@ -33,6 +35,8 @@ User.hasMany(Token);
 Token.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
+Brand.hasMany(Product);
+Product.belongsTo(Brand);
 Order.belongsToMany(Product, { through: OrderProduct });
 Product.belongsToMany(Order, { through: OrderProduct });
 
@@ -43,7 +47,8 @@ module.exports = {
   Token,
   Order,
   Role,
-  OrderProduct
+  OrderProduct,
+  Brand
 };
 
 async function testDB() {
