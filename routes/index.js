@@ -9,6 +9,7 @@ const privateRoutes = require("./privateRoutes");
 const brandRoutes = require("./brandRoutes");
 
 apiRoutes.use("/brands", brandRoutes);
+apiRoutes.use("/products", productRoutes);
 apiRoutes.use(publicRoutes);
 apiRoutes.use("/orders", orderRoutes);
 apiRoutes.use("/user", userRoutes);
