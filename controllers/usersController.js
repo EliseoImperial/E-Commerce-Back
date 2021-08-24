@@ -6,29 +6,27 @@ const jwt = require("jsonwebtoken");
 async function index(req, res) {
   const users = await User.findAll();
   if (!users) res.status(408).json({ error: "Server on maintenance" });
-  const filterUser = users.map((user) => {
-    delete user.password;
-    delete user.token;
+  const filterUsers = users.map((user) => {
+    delete user.dataValues.password;
     return user;
   });
-  res.json(filterUser);
+  res.json(filterUsers);
 }
 
 async function token(req, res) {
-  console.log("entre al token");
   const user = await User.findOne({
     where: {
       email: req.body.email,
     },
   });
+  console.log(user);
+  console.log(req.body.email);
   if (user && (await user.validPassword(req.body.password))) {
     const userToken = await Token.findOne({
       where: {
         userId: user.id,
       },
     });
-    console.log(user);
-    console.log(userToken);
     res.json({ user: user.email, token: userToken.token });
   } else {
     res.status(400).json({ error: "User do not exist or bad request." });
@@ -45,9 +43,8 @@ async function show(req, res) {
 async function showById(req, res) {
   const user = await User.findByPk(req.params.id);
   if (!user) return res.json("User not found.");
-  const filterUser = { ...user };
+  const filterUser = { ...user }.dataValues;
   delete filterUser.password;
-  delete filterUser.token;
   res.json(filterUser);
 }
 
@@ -82,7 +79,8 @@ async function updateById(req, res) {
 
 async function update_lazy(id, body, admin = false) {
   const user = await User.findByPk(id);
-  const { firstname, lastname, email, address, telephone, roleId } = body;
+  const { firstname, lastname, email, address, telephone, roleId, password } =
+    body;
   if (!user) return null;
   if (firstname) user.firstname = firstname;
   if (lastname) user.lastname = lastname;

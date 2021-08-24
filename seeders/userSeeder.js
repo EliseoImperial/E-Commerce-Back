@@ -1,8 +1,9 @@
 const faker = require("faker");
-const { User } = require("../models");
+const { User, Token } = require("../models");
 const { usersSize } = require("../config/seeders");
 const bcrypt = require("bcryptjs");
 const salts = 10;
+const jwt = require("jsonwebtoken");
 
 faker.locale = "en";
 
@@ -25,13 +26,20 @@ module.exports = async () => {
   users.push({
     firstname: "admin",
     lastname: "admin",
-    email: "admin@admin.com",
+    email: "admin@admin.admin",
     address: "admin a d m i n admin",
     telephone: "adm ina dmi",
-    password: "admin",
+    password: await bcrypt.hash("admin", salts),
     roleId: 3,
   });
 
   await User.bulkCreate(users);
+
+  for (let i = 0; i < users.length; i++) {
+    const token = await Token.create({
+      userId: i + 1,
+      token: jwt.sign({ sub: i + 1 }, process.env.TOKEN_SECRET),
+    });
+  }
   console.log("[Database] Se corrió el seeder de Usuario.");
 };
