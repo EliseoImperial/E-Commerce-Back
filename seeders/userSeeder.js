@@ -38,7 +38,10 @@ module.exports = async () => {
   for (let i = 0; i < users.length; i++) {
     const token = await Token.create({
       userId: i + 1,
-      token: jwt.sign({ sub: i + 1 }, process.env.TOKEN_SECRET),
+      token: jwt.sign(
+        { sub: i + 1, roleId: users[i].roleId },
+        process.env.TOKEN_SECRET
+      ),
     });
   }
   console.log("[Database] Se corrió el seeder de Usuario.");

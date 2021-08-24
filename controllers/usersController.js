@@ -55,11 +55,14 @@ async function store(req, res) {
     where: { [Op.and]: [{ email: req.body.email }, { roleId: 2 }] },
     defaults: req.body,
   });
+  if (!created) return res.status(406).json({ error: "User already exists" });
   const token = await Token.create({
     userId: user.id,
-    token: jwt.sign({ sub: user.id }, process.env.TOKEN_SECRET),
+    token: jwt.sign(
+      { sub: user.id, roleId: user.roleId },
+      process.env.TOKEN_SECRET
+    ),
   });
-  if (!created) return res.status(406).json({ error: "User already exists" });
   const newUser = { ...filterUserProps(user), token: token };
   res.json(newUser);
 }
