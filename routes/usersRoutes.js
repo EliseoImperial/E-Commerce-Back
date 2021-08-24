@@ -11,7 +11,7 @@ usersRoutes.use(
 );
 
 // User
-usersRoutes.get("/", userController.show);
+usersRoutes.get("/:email", userController.show);
 usersRoutes.patch("/", userController.update);
 usersRoutes.delete("/", userController.destroy);
 
