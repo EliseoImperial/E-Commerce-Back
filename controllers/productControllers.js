@@ -8,20 +8,34 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-  const product = await Product.findOne({ where: { slug: req.params.slug }, include: Brand });
+  const product = await Product.findOne({
+    where: { slug: req.params.slug },
+    include: Brand,
+  });
   if (!product) return res.status(404).json({ error: "Product not found" });
   res.json(product);
 }
 
 async function store(req, res) {
-  const { name } = req.body;
-  const [product, created] = await Product.findOrCreate({
-    where: {
-      [Op.or]: [{ name }, { slug: name }],
-    },
-    defaults: req.body,
-  });
-  res.json(product);
+  if (
+    !req.body.name ||
+    !req.body.price ||
+    !req.body.image ||
+    !req.body.description ||
+    !req.body.brandId
+  ) {
+    res.status(406).json("No deben haber campos vacios");
+  } else {
+    const { name } = req.body;
+    console.log(name);
+    const [product, created] = await Product.findOrCreate({
+      where: {
+        [Op.or]: [{ name }, { slug: name }],
+      },
+      defaults: req.body,
+    });
+    res.json(product);
+  }
 }
 
 function update(req, res) {
