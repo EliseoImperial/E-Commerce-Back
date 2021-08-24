@@ -33,9 +33,8 @@ async function token(req, res) {
 
 async function show(req, res) {
   const user = await User.findByPk(req.user.sub);
-  const role = await Role.findOne({ where: { id: user.roleId } });
-  // ,{ include: [{ model: Role, required: true }],}
   if (!user) return res.json("User not found.");
+  const role = await Role.findOne({ where: { id: user.roleId } });
   const { firstname, lastname, email, address, telephone } = user;
   res.json({ firstname, lastname, email, address, telephone, role: role.name });
 }
