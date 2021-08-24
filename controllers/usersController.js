@@ -51,7 +51,7 @@ async function showById(req, res) {
 async function store(req, res) {
   if (!validUser(req.body))
     return res.status(422).json({ error: "Error en algun campo." });
-  req.body.roleId = 1;
+  req.body.roleId = 2;
   const [user, created] = await User.findOrCreate({
     where: { [Op.and]: [{ email: req.body.email }, { roleId: 2 }] },
     defaults: req.body,
