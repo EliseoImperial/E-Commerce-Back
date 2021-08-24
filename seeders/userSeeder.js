@@ -19,7 +19,7 @@ module.exports = async () => {
       address: faker.address.streetAddress(),
       telephone: faker.phone.phoneNumber(),
       password,
-      roleId: 1,
+      roleId: 2,
     });
   }
 
@@ -30,7 +30,7 @@ module.exports = async () => {
     address: "admin a d m i n admin",
     telephone: "adm ina dmi",
     password: await bcrypt.hash("admin", salts),
-    roleId: 3,
+    roleId: 4,
   });
 
   await User.bulkCreate(users);
