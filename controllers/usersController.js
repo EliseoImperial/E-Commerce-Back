@@ -1,4 +1,4 @@
-const { User, Token, Order } = require("../models");
+const { User, Token, Order, Role } = require("../models");
 const { validUser, filterUserProps } = require("../utils/user");
 const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
@@ -19,8 +19,6 @@ async function token(req, res) {
       email: req.body.email,
     },
   });
-  console.log(user);
-  console.log(req.body.email);
   if (user && (await user.validPassword(req.body.password))) {
     const userToken = await Token.findOne({
       where: {
@@ -35,6 +33,7 @@ async function token(req, res) {
 
 async function show(req, res) {
   const user = await User.findByPk(req.user.sub);
+  // ,{ include: [{ model: Role, required: true }],}
   if (!user) return res.json("User not found.");
   const { firstname, lastname, email, address, telephone } = user;
   res.json({ firstname, lastname, email, address, telephone });
