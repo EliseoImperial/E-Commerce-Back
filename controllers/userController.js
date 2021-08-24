@@ -6,7 +6,12 @@ const jwt = require("jsonwebtoken");
 async function index(req, res) {
   const users = await User.findAll();
   if (!users) res.status(408).json({ error: "Server on maintenance" });
-  res.json(users);
+  const filterUser = users.map((user) => {
+    delete user.password;
+    delete user.token;
+    return user;
+  });
+  res.json(filterUser);
 }
 
 async function token(req, res) {
