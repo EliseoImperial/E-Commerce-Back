@@ -126,6 +126,7 @@ async function destroy_aux(id) {
   } else {
     await User.update({ roleId: 3 }, { where: { id } });
   }
+  Token.destroy({ where: { userId: id } });
   const { firstname, lastname, email, address, telephone } = user;
   return { firstname, lastname, email, address, telephone };
 }
