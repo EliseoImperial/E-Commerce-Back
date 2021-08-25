@@ -84,6 +84,7 @@ async function update_lazy(id, body, admin = false) {
   const { firstname, lastname, email, address, telephone, roleId, password } =
     body;
   if (!user) return null;
+  if (user.roleId === 1 || user.roleId === 3) return null;
   if (firstname) user.firstname = firstname;
   if (lastname) user.lastname = lastname;
   if (email) {
@@ -93,8 +94,7 @@ async function update_lazy(id, body, admin = false) {
   if (address) user.address = address;
   if (telephone) user.telephone = telephone;
   if (password) user.password = user.hash(password);
-  if (admin && roleId && user.roleId !== 1 && user.roleId !== 3)
-    user.roleId = roleId;
+  if (admin && roleId) user.roleId = roleId;
   await user.save();
   return {
     firstname: user.firstname,
