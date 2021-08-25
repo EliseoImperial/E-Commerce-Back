@@ -13,8 +13,10 @@ productsRoutes.use(
 
 productsRoutes.use(isAdmin);
 
-productsRoutes.post("/", productController.store);
-productsRoutes.patch("/", productController.update);
-productsRoutes.delete("/", productController.destroy);
+productsRoutes.get("/admin", productController.indexAdmin);
+productsRoutes.get("/admin/:id", productController.showAdmin);
+productsRoutes.post("/:id", productController.store);
+productsRoutes.patch("/:id", productController.update);
+productsRoutes.delete("/:id", productController.destroy);
 
 module.exports = productsRoutes;
