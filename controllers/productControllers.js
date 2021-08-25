@@ -60,14 +60,30 @@ async function store(req, res) {
   }
 }
 
-function update(req, res) {
-  res.json("[update] We are working...");
+async function update(req, res) {
+  const dbProduct = Product.findOne({
+    where: {
+      [Op.and]: [{ name: req.body.name }, { brandId: req.body.brandId }],
+    },
+  });
+  if (dbProduct) {
+    if (req.body.name) dbProduct.name = req.body.name;
+    if (req.body.brandId) dbProduct.brandId = req.body.brandId;
+    if (req.body.description) dbProduct.description = req.body.description;
+    if (req.body.price) dbProduct.price = req.body.price;
+    if (req.body.image) dbProduct.image = req.body.image;
+    await Product.save();
+  } else {
+    res.status(404).json("Product does not exist");
+  }
+
+  if (req.product.name) res.json("[update] We are working...");
 }
 
 async function destroy(req, res) {
   const product = await Product.destroy({
-    where: {id: req.body.id}
-  })
+    where: { id: req.body.id },
+  });
 }
 
 module.exports = { index, indexAdmin, show, showAdmin, store, update, destroy };
