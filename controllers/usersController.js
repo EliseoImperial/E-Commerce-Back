@@ -107,13 +107,13 @@ async function update_lazy(id, body, admin = false) {
 
 async function destroy(req, res) {
   const user = await destroy_aux(req.user.sub);
-  if (!user) return res.status(404).json("User not finded");
+  if (!user) return res.status(404).json("User not found");
   res.json(user);
 }
 
 async function destroyById(req, res) {
   const user = await destroy_aux(req.params.id);
-  if (!user) return res.status(404).json("User not finded");
+  if (!user) return res.status(404).json("User not found");
   res.json(user);
 }
 

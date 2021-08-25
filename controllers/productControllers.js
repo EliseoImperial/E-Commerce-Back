@@ -1,5 +1,6 @@
 const { Product, Brand } = require("../models");
 const { Op } = require("sequelize");
+const slugify = require("slugify");
 
 async function index(req, res) {
   const products = await Product.findAll({ include: Brand });
@@ -42,14 +43,20 @@ async function store(req, res) {
     res.status(406).json("No deben haber campos vacios");
   } else {
     const { name } = req.body;
+    const { brandId } = req.body;
     console.log(name);
+    req.body.slug = slugify(name);
     const [product, created] = await Product.findOrCreate({
       where: {
-        [Op.or]: [{ name }, { slug: name }],
+        [Op.and]: [{ name }, { brandId }],
       },
       defaults: req.body,
     });
-    res.json(product);
+    if (!created) {
+      res.status(409).json("Producto ya existe");
+    } else {
+      res.json(product);
+    }
   }
 }
 
@@ -57,8 +64,10 @@ function update(req, res) {
   res.json("[update] We are working...");
 }
 
-function destroy(req, res) {
-  res.json("[destroy] We are working...");
+async function destroy(req, res) {
+  const product = await Product.destroy({
+    where: {id: req.body.id}
+  })
 }
 
 module.exports = { index, indexAdmin, show, showAdmin, store, update, destroy };
