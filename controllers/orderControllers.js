@@ -12,34 +12,26 @@ async function show(req, res) {
 }
 
 async function store(req, res) {
-//   if (req.body.guest === true) {
-//     const user = await User.create({
-//       firstname: req.body.firstName,
-//       lastname: req.body.lastName,
-//       email: req.body.email,
-//       address: req.body.address,
-//       password: "",
-//       telephone: req.body.phone,
-//       roleId: 1,
-//     });
-    // if (user) {
-        const order = await Order.create({
-          status: "PENDING",
-          userId: user.id,
-          paymentMethod: req.body.paymentMethod,
-        });
-        if (order) {
-          const products = req.body.items.map((item) => ({
-            orderId: order.id,
-            productId: item,
-            quantity: 1,
-            unit_price: 1
-          }));
-          const order_product = await OrderProduct.bulkCreate(products);
-          if (order_product) return res.json(order);
-        }
-//     }
-//  }
+  const user = await User.findOneAndUpdate({ email: req.body.email }, { telephone: req.body.phone, address: req.body.address }, {
+    new: true
+  });
+  if (user) {
+    const order = await Order.create({
+      status: "PENDING",
+      userId: user.id,
+      paymentMethod: req.body.paymentMethod,
+    });
+    if (order) {
+      const products = req.body.items.map((item) => ({
+        orderId: order.id,
+        productId: item,
+        quantity: 1,
+        unit_price: 1,
+      }));
+      const order_product = await OrderProduct.bulkCreate(products);
+      if (order_product) return res.json(order);
+    }
+  }
   res.sendStatus(403);
 }
 
