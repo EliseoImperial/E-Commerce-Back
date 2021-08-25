@@ -120,13 +120,13 @@ async function destroyById(req, res) {
 async function destroy_aux(id) {
   const user = await User.findByPk(id);
   if (!user) return null;
+  Token.destroy({ where: { userId: id } });
   const orders = await Order.findOne({ where: { userId: id } });
   if (!orders) {
     await User.destroy({ where: { id } });
   } else {
     await User.update({ roleId: 3 }, { where: { id } });
   }
-  Token.destroy({ where: { userId: id } });
   const { firstname, lastname, email, address, telephone } = user;
   return { firstname, lastname, email, address, telephone };
 }
