@@ -15,7 +15,7 @@ productsRoutes.use(isAdmin);
 
 productsRoutes.get("/admin", productController.indexAdmin);
 productsRoutes.get("/admin/:id", productController.showAdmin);
-productsRoutes.post("/:id", productController.store);
+productsRoutes.post("/", productController.store);
 productsRoutes.patch("/:id", productController.update);
 productsRoutes.delete("/:id", productController.destroy);
 
