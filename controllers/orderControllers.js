@@ -35,7 +35,7 @@ async function store(req, res) {
         if (order_product) return res.json(order);
       }
     }
-    res.sendStatus(403);
+    res.sendStatus(200);
   } else {
     res.sendStatus(403);
   }
