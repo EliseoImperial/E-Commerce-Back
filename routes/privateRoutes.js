@@ -11,8 +11,12 @@ privateRoutes.use(
 privateRoutes.use(isAdmin);
 
 privateRoutes.patch("/db", async (req, res) => {
-  res.json("[DB] Database will restart");
-  dbInitialSetup(); // Crea tablas e inserta datos de prueba.
+  try {
+    await dbInitialSetup(); // Crea tablas e inserta datos de prueba.
+    res.json("[DB] The Database will restart.");
+  } catch (error) {
+    res.status(404).json("[DB] The database could not be restarted.");
+  }
 });
 
 module.exports = privateRoutes;
