@@ -61,18 +61,16 @@ async function store(req, res) {
 }
 
 async function update(req, res) {
-  const dbProduct = Product.findByPk(req.body.id);
-  if (dbProduct) {
-    if (req.body.name) dbProduct.name = req.body.name;
-    if (req.body.description) dbProduct.description = req.body.description;
-    if (req.body.price) dbProduct.price = req.body.price;
-    await Product.save();
+  const result = await Product.findByPk(req.body.id);
+  if (result) {
+    result.name = req.body.name;
+    result.description = req.body.description;
+    result.price = req.body.price;
+    await result.save();
     res.json("Product updated");
   } else {
     res.status(404).json("Product does not exist");
   }
-
-  if (req.product.name) res.json("[update] We are working...");
 }
 
 async function destroy(req, res) {
