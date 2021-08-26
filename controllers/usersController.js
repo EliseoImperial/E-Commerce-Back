@@ -4,7 +4,9 @@ const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 
 async function index(req, res) {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    order: [["id", "DESC"]],
+  });
   if (!users) res.status(408).json({ error: "Server on maintenance" });
   const filterUsers = users.map((user) => {
     delete user.dataValues.password;
