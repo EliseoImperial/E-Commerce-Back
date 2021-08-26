@@ -61,18 +61,13 @@ async function store(req, res) {
 }
 
 async function update(req, res) {
-  const dbProduct = Product.findOne({
-    where: {
-      [Op.and]: [{ name: req.body.name }, { brandId: req.body.brandId }],
-    },
-  });
+  const dbProduct = Product.findByPk(req.body.id);
   if (dbProduct) {
     if (req.body.name) dbProduct.name = req.body.name;
-    if (req.body.brandId) dbProduct.brandId = req.body.brandId;
     if (req.body.description) dbProduct.description = req.body.description;
     if (req.body.price) dbProduct.price = req.body.price;
-    if (req.body.image) dbProduct.image = req.body.image;
     await Product.save();
+    res.json("Product updated");
   } else {
     res.status(404).json("Product does not exist");
   }
