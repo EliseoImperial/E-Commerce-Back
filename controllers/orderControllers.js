@@ -1,7 +1,7 @@
 const { Order, User, OrderProduct } = require("../models");
 
 async function index(req, res) {
-  const orders = await Order.findAll();
+  const orders = await Order.findAll({ include: User });
   res.json(orders);
 }
 
@@ -41,8 +41,25 @@ async function store(req, res) {
   }
 }
 
-function update(req, res) {}
+async function update(req, res) {
+  const result = await Order.findByPk(req.body.id);
+  if(result) {
+    result.status = req.body.status;
+    await result.save();
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
+  }
+}
 
-function destroy(req, res) {}
+async function destroy(req, res) {
+  const result = await Order.findByPk(req.body.id);
+  if(result) {
+    await result.destroy();
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
+  }
+}
 
 module.exports = { index, show, store, update, destroy };

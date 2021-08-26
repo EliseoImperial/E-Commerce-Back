@@ -4,6 +4,7 @@ const orderController = require("../controllers/orderControllers");
 const checkJwt = require("express-jwt");
 const isAdmin = require("../middlewares/isAdmin");
 
+orderRoutes.get("/", orderController.index);
 orderRoutes.get("/:id", orderController.show);
 orderRoutes.post("/", orderController.store);
 
@@ -12,8 +13,6 @@ orderRoutes.use(
 );
 
 orderRoutes.use(isAdmin);
-
-orderRoutes.get("/", orderController.index);
 orderRoutes.patch("/", orderController.update);
 orderRoutes.delete("/", orderController.destroy);
 
