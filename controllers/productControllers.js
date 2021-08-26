@@ -75,8 +75,13 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   const product = await Product.destroy({
-    where: { id: req.body.id },
+    where: { id: req.params.id },
   });
+  if (product) {
+    res.status(404);
+  } else {
+    res.json("product deleted");
+  }
 }
 
 module.exports = { index, indexAdmin, show, showAdmin, store, update, destroy };
