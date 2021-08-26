@@ -1,4 +1,10 @@
-const { Order, User, OrderProduct } = require("../models");
+const { Order, User, OrderProduct, Product } = require("../models");
+
+async function getProduct(productId) {
+  const product = await Product.findByPk(productId);
+  if (product) return product;
+  return null;
+}
 
 async function index(req, res) {
   const orders = await Order.findAll({ include: User });
@@ -6,9 +12,14 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-  const order = await Order.findByPk(req.params.id);
-  if (!order) return res.json("Order not found.");
-  return res.json(order);
+  const order = await Order.findByPk(req.params.id, {
+    include: [User, Product],
+  });
+  if (!order) {
+    res.json("Order not found.");
+  } else {
+    res.json(order);
+  }
 }
 
 async function store(req, res) {
@@ -43,7 +54,7 @@ async function store(req, res) {
 
 async function update(req, res) {
   const result = await Order.findByPk(req.body.id);
-  if(result) {
+  if (result) {
     result.status = req.body.status;
     await result.save();
     res.sendStatus(200);
@@ -54,7 +65,7 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   const result = await Order.findByPk(req.body.id);
-  if(result) {
+  if (result) {
     await result.destroy();
     res.sendStatus(200);
   } else {
