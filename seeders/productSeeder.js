@@ -33,8 +33,17 @@ module.exports = async () => {
       description: "Luxury I love It C:",
       brandId: 3,
     }
-  );
-
-  await Product.bulkCreate(products);
+  ),
+    {
+      name: "Ferrari Monza",
+      slug: "Tesla-M3",
+      image:
+        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Tesla-M3.jpeg",
+      price: 48490,
+      description:
+        "The 2018 Ferrari Monza SP1 was designed for the driver who doesn't want to take any passenger along the road. The one-seater vehicle was built mostly for collectors. The car was inspired by the 1955 Ferrari 750 with one seat and track-days in mind",
+      brandId: 2,
+    },
+    await Product.bulkCreate(products);
   console.log("[Database] Se corrió el seeder de Productos.");
 };
