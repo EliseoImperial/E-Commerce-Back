@@ -73,4 +73,9 @@ async function destroy(req, res) {
   }
 }
 
-module.exports = { index, show, store, update, destroy };
+async function userOrders(req, res) {
+  const results = await Order.findAll({where: { userId: req.user.sub }, include: [Product]})
+  if(!results) return res.sendStatus(404);
+  return res.json(results);
+}
+module.exports = { index, show, store, update, destroy, userOrders };
