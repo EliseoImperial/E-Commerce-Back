@@ -70,7 +70,8 @@ async function store(req, res) {
 }
 
 async function update(req, res) {
-  const user = await update_lazy(req.user.sub, req.body);
+  const { address, telephone } = req.body;
+  const user = await update_lazy(req.user.sub, { address, telephone });
   if (!user) return res.status(404).json("User not finded");
   res.json(user);
 }
