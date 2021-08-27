@@ -8,22 +8,7 @@ async function index(req, res) {
   res.json(products);
 }
 
-async function indexAdmin(req, res) {
-  const products = await Product.findAll({ include: Brand });
-  if (!products) return res.status(404).json({ error: "Products not found" });
-  res.json(products);
-}
-
 async function show(req, res) {
-  const product = await Product.findOne({
-    where: { slug: req.params.slug },
-    include: Brand,
-  });
-  if (!product) return res.status(404).json({ error: "Product not found" });
-  res.json(product);
-}
-
-async function showAdmin(req, res) {
   const product = await Product.findOne({
     where: { slug: req.params.slug },
     include: Brand,
@@ -84,4 +69,4 @@ async function destroy(req, res) {
   }
 }
 
-module.exports = { index, indexAdmin, show, showAdmin, store, update, destroy };
+module.exports = { index, show, store, update, destroy };

@@ -11,11 +11,12 @@ orderRoutes.use(
 );
 
 orderRoutes.get("/user", orderController.userOrders);
+
+orderRoutes.use(isAdmin);
+
 orderRoutes.get("/", orderController.index);
 orderRoutes.get("/:id", orderController.show);
 
-
-orderRoutes.use(isAdmin);
 orderRoutes.patch("/", orderController.update);
 orderRoutes.delete("/", orderController.destroy);
 

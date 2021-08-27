@@ -7,7 +7,13 @@ async function getProduct(productId) {
 }
 
 async function index(req, res) {
-  const orders = await Order.findAll({ include: User });
+  const { include } = req.query;
+  let orders;
+  if (include) {
+    orders = await Order.findAll({ include: Product });
+  } else {
+    orders = await Order.findAll({ include: User });
+  }
   res.json(orders);
 }
 
@@ -74,8 +80,11 @@ async function destroy(req, res) {
 }
 
 async function userOrders(req, res) {
-  const results = await Order.findAll({where: { userId: req.user.sub }, include: [Product]})
-  if(!results) return res.sendStatus(404);
+  const results = await Order.findAll({
+    where: { userId: req.user.sub },
+    include: [Product],
+  });
+  if (!results) return res.sendStatus(404);
   return res.json(results);
 }
 module.exports = { index, show, store, update, destroy, userOrders };
