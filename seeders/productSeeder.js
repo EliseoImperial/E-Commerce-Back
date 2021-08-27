@@ -41,7 +41,7 @@ module.exports = async () => {
       name: "Ferrari SF90 Spider",
       slug: "Ferrari-SF90-Spider",
       image:
-        "https://cdn.ferrari.com/cms/network/media/img/resize/5fab9cebfcbe6062250a1626-ferrari-sf90-spider-dynamics-cover-darker-desk?width=1920&height=1080",
+        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/sf90spider.jpg",
       price: 507300,
       description:
         "As the Prancing Horse’s first production plug-in hybrid spider, the SF90 Spider sets new performance and innovation benchmarks not only for the marque’s range, but for the entire sports car sector. The new convertible has the same extreme supercar specification and record-breaking performance as the SF90 Stradale yet also adds further driving pleasure and versatility to the mix, thanks to the latest iteration of Ferrari’s signature Retractable Hard Top architecture. This makes the SF90 Spider the ideal car for owners that demand the very pinnacle of Ferrari technology, but still want the thrill and versatility of open-top driving.",
@@ -51,7 +51,7 @@ module.exports = async () => {
       name: "Ferrari 290 GBT",
       slug: "Ferrari-290-GBT",
       image:
-        "https://cdn.ferrari.com/cms/network/media/img/resize/60d1de010bfad6210addac52-ferrari-296-gtb-dynamics-cover-desk?width=1920&height=1080",
+        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/ferrari290gbt.jpg",
       price: 507300,
       description:
         "The 296 GTB, an evolution of Ferrari’s mid-rear-engined two-seater sports berlinetta concept, represents a revolution for the Maranello-based company as it introduces the new 120° V6 engine coupled with a plug-in (PHEV) electric motor capable of delivering up to 830 cv. The car thus redefines the idea of driving fun to provide pure excitement not only when pursuing maximum performance but also in everyday driving.",
@@ -61,13 +61,12 @@ module.exports = async () => {
       name: "Ferrari Roma",
       slug: "Ferrari-Roma",
       image:
-        "https://cdn.ferrari.com/cms/network/media/img/resize/5d6e87bbee5f7e5863059b0b-d-f8spider-dynamic?width=1920&height=1080",
+        "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/ferrari roma.jpg",
       price: 507300,
       description:
         "The F8 Spider’s greatest achievement is the fact that it unleashes its power instantaneously with zero turbo lag, whilst retaining this V8’s unique and very special soundtrack.",
       brandId: 2,
     },
-
     await Product.bulkCreate(products);
   const products = [...teslaSeeder, ...ferrariSeeder, ...lamborghiniSeeder];
   await Product.bulkCreate(products);
