@@ -13,10 +13,10 @@ module.exports = [
     name: "Tesla MS",
     slug: "Tesla-MS",
     image:
-      "With the longest range and quickest acceleration of any electric vehicle in production, Model S Plaid is the highest performing sedan ever built. Both Long Range and Plaid powertrains, with updated battery architecture, are capable of back-to-back, consistent 1/4 mile runs.",
+      "https://dhqdctvzoxoazqvdwpwj.supabase.in/storage/v1/object/public/public-bucket/assets/Tesla-MS.jpeg",
     price: 91900,
     description:
-      "Es eléctrico, eléctricoooo. Barato? Se dice: Inversión a futuro, y eléctrico.",
+      "With the longest range and quickest acceleration of any electric vehicle in production, Model S Plaid is the highest performing sedan ever built. Both Long Range and Plaid powertrains, with updated battery architecture, are capable of back-to-back, consistent 1/4 mile runs.",
     brandId: 1,
   },
   {
