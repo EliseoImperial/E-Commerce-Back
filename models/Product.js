@@ -25,6 +25,10 @@ module.exports = (sequelize, Model, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      featured: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      }
     },
     {
       sequelize,
