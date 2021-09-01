@@ -5,9 +5,7 @@ function capitalize(word) {
 }
 
 async function index(req, res) {
-  const brands = await Brand.findAll({
-    order: [["id", "DESC"]],
-  });
+  const brands = await Brand.findAll();
   if (!brands) return res.status(404).json({ error: "Brands not found" });
   res.json(brands);
 }
