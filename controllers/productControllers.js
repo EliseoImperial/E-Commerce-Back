@@ -5,7 +5,6 @@ const slugify = require("slugify");
 async function index(req, res) {
   const products = await Product.findAll({
     include: Brand,
-    order: [["id", "DESC"]],
   });
   if (!products) return res.status(404).json({ error: "Products not found" });
   res.json(products);
