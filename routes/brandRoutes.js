@@ -14,7 +14,7 @@ brandRoutes.use(
 brandRoutes.use(isAdmin);
 
 brandRoutes.post("/", brandController.store);
-brandRoutes.patch("/", brandController.update);
-brandRoutes.delete("/", brandController.destroy);
+brandRoutes.patch("/:id", brandController.update);
+brandRoutes.delete("/:id", brandController.destroy);
 
 module.exports = brandRoutes;
