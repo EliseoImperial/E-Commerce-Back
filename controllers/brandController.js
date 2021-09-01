@@ -1,17 +1,21 @@
 const { Brand } = require("../models");
 
 function capitalize(word) {
-    return word[0].toUpperCase() + word.slice(1).toLowerCase();
-  }
+  return word[0].toUpperCase() + word.slice(1).toLowerCase();
+}
 
 async function index(req, res) {
-  const brands = await Brand.findAll();
+  const brands = await Brand.findAll({
+    order: [["id", "DESC"]],
+  });
   if (!brands) return res.status(404).json({ error: "Brands not found" });
   res.json(brands);
 }
 
 async function show(req, res) {
-  const brand = await Brand.findOne({ where: { name: capitalize(req.params.brand) } });
+  const brand = await Brand.findOne({
+    where: { name: capitalize(req.params.brand) },
+  });
   if (!brand) return res.status(404).json({ error: "Brand not found" });
   res.json(brand);
 }
