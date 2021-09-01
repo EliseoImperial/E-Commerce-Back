@@ -57,7 +57,7 @@ async function store(req, res) {
       res.status(406).json("You are not exist");
     }
   } else {
-    res.sendStatus(401).json("Unauthorized");
+    res.status(401).json("Unauthorized");
   }
 }
 
@@ -90,4 +90,16 @@ async function userOrders(req, res) {
   if (!results) return res.sendStatus(404);
   return res.json(results);
 }
-module.exports = { index, show, store, update, destroy, userOrders };
+
+async function userOrder(req, res) {
+  const order = await Order.findByPk(req.params.id, {
+    include: [User, Product],
+  });
+  if (!order || req.user.sub !== order.userId) {
+    res.json("Order not found.");
+  } else {
+    res.json(order);
+  }
+}
+
+module.exports = { index, show, store, update, destroy, userOrders, userOrder };

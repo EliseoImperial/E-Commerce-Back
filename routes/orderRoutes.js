@@ -11,6 +11,7 @@ orderRoutes.use(
 orderRoutes.post("/", orderController.store);
 
 orderRoutes.get("/user", orderController.userOrders);
+orderRoutes.get("/user/:id", orderController.userOrder);
 
 orderRoutes.use(isAdmin);
 
