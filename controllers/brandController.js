@@ -20,7 +20,7 @@ async function show(req, res) {
 
 async function store(req, res) {
   const { name } = req.body;
-  if (!name || !req.body.image || !req.body.description) {
+  if (!name || !req.body.logo || !req.body.description) {
     res.status(406).json("All fields are required");
   } else {
     const [brand, created] = await Brand.findOrCreate({
@@ -37,21 +37,22 @@ async function store(req, res) {
 
 async function update(req, res) {
   const brand = await Brand.findByPk(req.params.id);
-  const { name, description, image } = req.body;
+  const { name, description, logo } = req.body;
 
   if (!brand) return res.status(404).json("Brand does not exist");
 
   if (name) brand.name = name;
   if (description) brand.description = description;
-  if (image) brand.image = image;
-  await result.save();
+  if (logo) brand.logo = logo;
+  await brand.save();
   res.json(brand);
 }
 
 async function destroy(req, res) {
   const product = await Product.findOne({ where: { brandId: req.params.id } });
+  console.log(req.params.id, product);
 
-  if (!product)
+  if (product)
     return res
       .status(406)
       .json("Brand have at least one product, not can deleted");
