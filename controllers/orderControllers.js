@@ -29,7 +29,8 @@ async function show(req, res) {
 }
 
 async function store(req, res) {
-  if (req.headers.authorization === process.env.ULTRA_SECRET_TOKEN) {
+  console.log(req.headers);
+  if (req.headers.authorization2 === process.env.ULTRA_SECRET_TOKEN) {
     await User.update(
       { telephone: req.body.phone, address: req.body.address },
       { where: { email: req.body.email } }
@@ -50,11 +51,14 @@ async function store(req, res) {
         }));
         const order_product = await OrderProduct.bulkCreate(products);
         if (order_product) return res.json(order);
+      } else {
+        res.status(409).json("Order Exist");
       }
+    } else {
+      res.status(406).json("You are not exist");
     }
-    res.sendStatus(200);
   } else {
-    res.sendStatus(403);
+    res.sendStatus(401).json("Unauthorized");
   }
 }
 

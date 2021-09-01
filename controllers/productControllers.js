@@ -29,7 +29,6 @@ async function store(req, res) {
   } else {
     const { name } = req.body;
     const { brandId } = req.body;
-    console.log(name);
     req.body.slug = slugify(name);
     const [product, created] = await Product.findOrCreate({
       where: {

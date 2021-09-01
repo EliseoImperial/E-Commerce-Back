@@ -4,11 +4,11 @@ const orderController = require("../controllers/orderControllers");
 const checkJwt = require("express-jwt");
 const isAdmin = require("../middlewares/isAdmin");
 
-orderRoutes.post("/", orderController.store);
-
 orderRoutes.use(
   checkJwt({ secret: process.env.TOKEN_SECRET, algorithms: ["HS256"] })
 );
+
+orderRoutes.post("/", orderController.store);
 
 orderRoutes.get("/user", orderController.userOrders);
 
