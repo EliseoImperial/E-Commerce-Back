@@ -29,7 +29,6 @@ async function show(req, res) {
 }
 
 async function store(req, res) {
-  console.log(req.headers);
   if (req.headers.authorization2 === process.env.ULTRA_SECRET_TOKEN) {
     await User.update(
       { telephone: req.body.phone, address: req.body.address },
