@@ -47,7 +47,7 @@ async function store(req, res) {
 }
 
 async function update(req, res) {
-  const product = await Product.findByPk(req.body.id);
+  const product = await Product.findByPk(req.params.id);
   if (product) {
     product.name = req.body.name;
     product.description = req.body.description;
