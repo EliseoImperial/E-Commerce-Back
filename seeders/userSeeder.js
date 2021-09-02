@@ -45,7 +45,7 @@ module.exports = async () => {
 
   await User.bulkCreate(users);
 
-  for (let i = users.length - 1; i < users.length; i++) {
+  for (let i = users.length - 2; i < users.length; i++) {
     const token = await Token.create({
       userId: i + 1,
       token: jwt.sign(
