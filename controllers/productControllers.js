@@ -47,14 +47,14 @@ async function store(req, res) {
 }
 
 async function update(req, res) {
-  const result = await Product.findByPk(req.body.id);
-  if (result) {
-    result.name = req.body.name;
-    result.description = req.body.description;
-    result.price = req.body.price;
-    result.featured = req.body.featured;
-    await result.save();
-    res.json(result);
+  const product = await Product.findByPk(req.body.id);
+  if (product) {
+    product.name = req.body.name;
+    product.description = req.body.description;
+    product.price = req.body.price;
+    product.featured = req.body.featured;
+    await product.save();
+    res.json(product);
   } else {
     res.status(404).json("Product does not exist");
   }

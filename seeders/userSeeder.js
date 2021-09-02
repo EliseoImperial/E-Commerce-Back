@@ -24,13 +24,23 @@ module.exports = async () => {
   }
 
   users.push({
-    firstname: "admin",
-    lastname: "admin",
-    email: "admin@admin.admin",
-    address: "admin a d m i n admin",
-    telephone: "adm ina dmi",
-    password: await bcrypt.hash("admin", salts),
+    firstname: "Admin",
+    lastname: "Montevideo",
+    email: "admin@uy.com",
+    address: "Av. de las Leyes",
+    telephone: "+598 33 565 656",
+    password: await bcrypt.hash("root", salts),
     roleId: 4,
+  });
+
+  users.push({
+    firstname: "User",
+    lastname: "Montevideo",
+    email: "user@uy.com",
+    address: "Pl. Independencia",
+    telephone: "+598 33 565 656",
+    password: await bcrypt.hash("root", salts),
+    roleId: 2,
   });
 
   await User.bulkCreate(users);
