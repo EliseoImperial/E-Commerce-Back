@@ -52,8 +52,9 @@ async function update(req, res) {
     result.name = req.body.name;
     result.description = req.body.description;
     result.price = req.body.price;
+    result.featured = req.body.featured;
     await result.save();
-    res.json("Product updated");
+    res.json(result);
   } else {
     res.status(404).json("Product does not exist");
   }
