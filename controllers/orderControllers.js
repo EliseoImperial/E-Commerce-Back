@@ -76,10 +76,8 @@ async function destroy(req, res) {
   const result = await Order.findByPk(req.body.id);
   if (result) {
     await result.destroy();
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(404);
   }
+  res.json(result);
 }
 
 async function userOrders(req, res) {

@@ -64,11 +64,7 @@ async function destroy(req, res) {
   const product = await Product.destroy({
     where: { id: req.params.id },
   });
-  if (!product) {
-    res.status(404).json("Product not founded");
-  } else {
-    res.json("Product deleted");
-  }
+  res.json(product);
 }
 
 module.exports = { index, show, store, update, destroy };

@@ -60,9 +60,7 @@ async function destroy(req, res) {
     where: { id: req.params.id },
   });
 
-  if (brandDeleted) return res.json(brandDeleted);
-
-  return res.status(404).json("Brand not funded");
+  return res.json(brandDeleted);
 }
 
 module.exports = { index, show, store, update, destroy };
