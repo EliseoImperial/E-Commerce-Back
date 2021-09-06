@@ -30,11 +30,10 @@ async function store(req, res) {
     res.status(406).json("No deben haber campos vacios");
   } else {
     const { name } = req.body;
-    const { brandId } = req.body;
     req.body.slug = slugify(name);
     const [product, created] = await Product.findOrCreate({
       where: {
-        [Op.and]: [{ name }, { brandId }],
+        name: name,
       },
       defaults: req.body,
     });
