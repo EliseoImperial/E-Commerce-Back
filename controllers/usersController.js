@@ -51,13 +51,16 @@ async function showById(req, res) {
 
 async function store(req, res) {
   if (!validUser(req.body))
-    return res.status(422).json({ error: "Error en algun campo." });
+    return res
+      .status(422)
+      .json({ error: "[Error][Email] Try someting like: myEmail@email.com" });
   req.body.roleId = 2;
   const [user, created] = await User.findOrCreate({
     where: { [Op.and]: [{ email: req.body.email }, { roleId: 2 }] },
     defaults: req.body,
   });
-  if (!created) return res.status(406).json({ error: "User already exists" });
+  if (!created)
+    return res.status(406).json({ error: "[Error] Email Already exists" });
   const token = await Token.create({
     userId: user.id,
     token: jwt.sign(
