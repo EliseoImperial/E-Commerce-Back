@@ -29,7 +29,7 @@ module.exports = async () => {
     email: "admin@uy.com",
     address: "Av. de las Leyes",
     telephone: "+598 33 565 656",
-    password: await bcrypt.hash("root", salts),
+    password, //: await bcrypt.hash("root", salts),
     roleId: 4,
   });
 
@@ -39,7 +39,7 @@ module.exports = async () => {
     email: "user@uy.com",
     address: "Pl. Independencia",
     telephone: "+598 33 565 656",
-    password: await bcrypt.hash("root", salts),
+    password, //: await bcrypt.hash("root", salts),
     roleId: 2,
   });
 
