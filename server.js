@@ -13,10 +13,6 @@ routes(app);
 
 // dbInitialSetup(); // Crea tablas e inserta datos de prueba.
 
-const { callSupabaseDbToBreakAutoPause } = require("./utils/utils");
-const fiveDaysMilisecons = 1000 * 60 * 60 * 24 * 5;
-setInterval(callSupabaseDbToBreakAutoPause, fiveDaysMilisecons);
-
 app.listen(APP_PORT, () =>
   console.log(`\n[Express] Servidor corriendo en el puerto ${APP_PORT}!\n`)
 );
