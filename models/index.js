@@ -2,14 +2,26 @@ const { OctetStreamParser } = require("formidable");
 const { Sequelize, Model, DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(
-  process.env.DB_DATABASE, // Ej: hack_academy_db
+  // Correcto
+  /*process.env.DB_DATABASE, // Ej: hack_academy_db
   process.env.DB_USERNAME, // Ej: root
   process.env.DB_PASSWORD, // Ej: root
   {
     host: process.env.DB_HOST, // Ej: 127.0.0.1
-    dialect: process.env.DB_CONNECTION, // Ej: mysq
+    dialect: process.env.DB_CONNECTION, // Ej: mysql
     dialectModule: require("pg"),
     logging: false, // Para que no aparezcan mensajes en consola.
+  }*/
+
+  // Hardcodeado MAL (me evito cambiar el .env)
+  "db.tvpeysnqvloinxumeyiu.supabase.co",
+  "postgres",
+  "2OhW6joyt72DHk26",
+  {
+    host: "db.tvpeysnqvloinxumeyiu.supabase.co",
+    dialect: "postgres",
+    dialectModule: require("pg"),
+    logging: false,
   }
 );
 
@@ -48,7 +60,7 @@ module.exports = {
   Order,
   Role,
   OrderProduct,
-  Brand
+  Brand,
 };
 
 async function testDB() {
